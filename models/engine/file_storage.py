@@ -2,7 +2,7 @@
 """
 Contains the FileStorage class
 """
-
+import models
 import json
 from models.amenity import Amenity
 from models.base_model import BaseModel
@@ -75,11 +75,12 @@ class FileStorage:
         or None if not found
         """
         if cls and id:
-            obj_key = "{}.{}".format(cls, id)
-            all_obj = self.all(cls)
-            return all_obj.get(obj_key)
-        else:
-            return None
+            if cls in classes.values():
+                obj_key = "{}.{}".format(cls, id)
+                all_obj = self.all(cls)
+                return all_obj.get(obj_key)
+
+        return None
 
     def count(self, cls=None):
         """
@@ -93,6 +94,6 @@ class FileStorage:
             for Class in classes_data:
                 count += len(models.storage.all(Class).values())
         else:
-            count = models.storage.all(cls).values()
+            count = len(models.storage.all(cls).values())
 
         return count

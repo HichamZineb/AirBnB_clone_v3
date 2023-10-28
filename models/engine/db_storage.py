@@ -81,20 +81,15 @@ class DBStorage:
         or None if not found
         """
         if cls and id:
-            object_key = "{}.{}".format(cls.__name__, id)
-            all_objects = self.all(cls)
+            if cls in classes.values():
+                object_key = "{}.{}".format(cls.__name__, id)
+                all_objects = self.all(cls)
 
-            for key in all_objects:
-                if key == object_key:
-                    return all_objects[key]
-        else:
-            return None
+                for key in all_objects:
+                    if key == object_key:
+                        return all_objects[key]
 
-            obj_key = "{}.{}".format(cls, id)
-            all_obj = self.all(cls)
-            return all_obj.get(obj_key)
-        else:
-            return None
+        return None
 
     def count(self, cls=None):
         """
@@ -102,6 +97,6 @@ class DBStorage:
         If no class is passed, returns the count of all objects in storage.
         """
         all_data = self.all(cls)
-        if cls in classes.values():
+        if cls and cls in classes.values():
             all_data = self.all(cls)
         return (len(all_data))
