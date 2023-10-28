@@ -79,7 +79,7 @@ class DBStorage:
         """
         Returns the object based on the class and its ID,
         or None if not found
-        """
+
         if cls and id:
             if cls in classes.values():
                 object_key = "{}.{}".format(cls.__name__, id)
@@ -88,6 +88,12 @@ class DBStorage:
                 for key in all_objects:
                     if key == object_key:
                         return all_objects[key]
+
+        return None
+        """
+        if cls and id:
+            query = self.__session.query(classes[cls]).filter_by(id=id).first()
+            return query
 
         return None
 
