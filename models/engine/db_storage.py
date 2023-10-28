@@ -96,7 +96,7 @@ class DBStorage:
         else:
             return None
 
-                obj_key = "{}.{}".format(cls, id)
+            obj_key = "{}.{}".format(cls, id)
             all_obj = self.all(cls)
             return all_obj.get(obj_key)
         else:
