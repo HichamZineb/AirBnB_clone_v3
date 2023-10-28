@@ -11,12 +11,16 @@ app.register_blueprint(app_views)
 @app.teardown_appcontext
 def close_session(exception):
     """closes a session"""
-    storage.colse()
+    storage.close()
+
 
 
 @app.errorhandler(404)
 def not_found(error):
-    """ handler for 404 errors that returns a JSON-formatted 404 status code response"""
+    """
+    handler for 404 errors that returns a JSON-formatted
+    404 status code response
+    """
     return jsonify({"error": "Not found"}), 404
 
 
