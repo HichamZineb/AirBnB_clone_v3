@@ -19,7 +19,8 @@ def get_states():
 @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def get_state(state_id):
     """ Retrieves a State object by its id"""
-    if(storage.get("State", state_id)):
+    state = storage.get("State", state_id)
+    if(state):
         return jsonify(state.to_dict())
 
     abort(404)
@@ -30,7 +31,7 @@ def get_state(state_id):
 def delete_state(state_id):
     """ Deletes a State object by its id """
     if(storage.get("State", state_id)):
-        storage.delete(state)
+        storage.delete(storage.get("State", state_id))
         storage.save()
         return (jsonify({}), 200)
 
