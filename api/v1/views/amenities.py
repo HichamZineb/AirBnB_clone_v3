@@ -53,7 +53,7 @@ def create_amenity():
     valid_amenity = Amenity(**JSON_data)
     storage.new(valid_amenity)
     storage.save()
-    return (jsonify(amenity.to_dict()), 201)
+    return (jsonify(valid_amenity.to_dict()), 201)
 
 
 @app_views.route('/amenities/<amenity_id>',
