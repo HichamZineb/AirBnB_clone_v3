@@ -4,7 +4,7 @@ This module handles all default RESTFul API actions for Amenity object
 """
 
 from api.v1.views import app_views
-from models.state import Amenity
+from models.amenity import Amenity
 from flask import jsonify, abort, request
 from models import storage
 
