@@ -13,11 +13,12 @@ from models import storage
 def get_amenities():
     """ Retrieves the list of all Amenity objects """
     all_amenities = storage.all(Amenity).values()
-   amenities_json = [amenity.to_dict() for amenity in all_amenities]
+    amenities_json = [amenity.to_dict() for amenity in all_amenities]
     return jsonify(amenities_json)
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>',
+                 methods=['GET'], strict_slashes=False)
 def get_amenity(amenity_id):
     """ Retrieves Amenity object by its id"""
     amenity = storage.get(Amenity, amenity_id)
