@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-This module handles all default RESTFul API actions for Amenity object """
+This module handles all default RESTFul API actions for Amenity object
+"""
 
 from api.v1.views import app_views
 from models.state import Amenity
