@@ -82,7 +82,7 @@ class FileStorage:
 
         return None
         """
-        if cls and id:
+        if cls and id and cls in classes.values():
             all_obj = self.all(cls)
             for obj in all_obj.values():
                 if obj.id == id:
@@ -96,7 +96,7 @@ class FileStorage:
         """
         classes_data = classes.values()
 
-        if not cls:
+        if not cls or cls not in classes.values():
             count = 0
             for Class in classes_data:
                 count += len(models.storage.all(Class).values())
