@@ -58,7 +58,7 @@ def update_state(state_id):
     """
     Updates a State object by its id
     """
-    state = storage.get("State", state_id)
+    state = storage.get(State, state_id)
     if state is None:
         abort(404)
 
