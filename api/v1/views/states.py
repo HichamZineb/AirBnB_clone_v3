@@ -31,7 +31,6 @@ def get_state(state_id):
 def delete_state(state_id):
     """ Deletes a State object by its id """
     state = storage.get(State, state_id)
-    print("found")
     if state:
         state.delete()
         storage.save()
@@ -43,16 +42,16 @@ def delete_state(state_id):
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def create_state():
     """ Creates a State """
-    stateToCreate = request.get_json()
-    if stateToCreate is None:
+    JSON_data = request.get_json()
+    if JSON_data is None:
         abort(400, "Not a JSON")
-    if "name" not in stateToCreate:
+    if "name" not in JSON_data:
         abort(400, "Missing name")
 
-    valid_state = State(**stateToCreate)
+    valid_state = State(**JSON_data)
     storage.new(valid_state)
     storage.save()
-    return (jsonify(state.to_dict()), 201)
+    return (jsonify(valid_state.to_dict()), 201)
 
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
