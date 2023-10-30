@@ -15,11 +15,12 @@ from models import storage
                  methods=['GET'], strict_slashes=False)
 def get_places(city_id):
     """ Retrieves the list of all Place objects """
-    city =  storage.get(City, city_id)
+    city = storage.get(City, city_id)
     if city:
         places_json = [place.to_dict() for place in city.places]
         return jsonify(places_json)
     abort(404)
+
 
 @app_views.route('/places/<place_id>',
                  methods=['GET'], strict_slashes=False)
@@ -59,7 +60,7 @@ def create_place(city_id):
         abort(400, "Missing user_id")
 
     user_id = JSON_data['user_id']
-    user =  storage.get(User, user_id)
+    user = storage.get(User, user_id)
     city = storage.get(City, city_id)
     if city is None or user is None:
         abort(404)
