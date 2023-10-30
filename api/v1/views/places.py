@@ -66,7 +66,6 @@ def create_place(city_id):
         abort(404)
 
     valid_place = Place(**JSON_data)
-    setattr(valid_place, 'city_id', city_id)
     storage.new(valid_place)
     storage.save()
     return (jsonify(valid_place.to_dict()), 201)
@@ -85,7 +84,7 @@ def update_place(place_id):
     JSON_data = request.get_json()
     if JSON_data is None:
         abort(400, "Not a JSON")
-    ignored_keys = ['id', 'created_at', 'updated_at']
+    ignored_keys = ['id', 'created_at', 'updated_at', 'user_id', 'city_id']
     for key, value in JSON_data.items():
         if key not in ignored_keys:
             setattr(placeToUpdate, key, value)
