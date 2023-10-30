@@ -6,6 +6,7 @@ This module handles all default RESTFul API actions for Place object
 from api.v1.views import app_views
 from models.place import Place
 from models.city import City
+from models.user import User
 from flask import jsonify, abort, request
 from models import storage
 
@@ -54,6 +55,9 @@ def create_place(city_id):
     if "name" not in JSON_data:
         abort(400, "Missing name")
 
+    if "user_id" not in JSON_data:
+        abort(400, "Missing user_id")
+
     user_id = JSON_data['user_id']
     user =  storage.get(User, user_id)
     city = storage.get(City, city_id)
@@ -61,6 +65,7 @@ def create_place(city_id):
         abort(404)
 
     valid_place = Place(**JSON_data)
+    setattr(valid_place, 'city_id', city_id)
     storage.new(valid_place)
     storage.save()
     return (jsonify(valid_place.to_dict()), 201)
