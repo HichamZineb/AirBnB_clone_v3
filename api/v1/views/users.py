@@ -58,7 +58,7 @@ def create_user():
     storage.new(new_user)
     storage.save()
     Users.append(new_user.to_dict())
-    return jsonify(users[0]), 201
+    return jsonify(Users[0]), 201
 
 
 @app_views.route('/users/<user_id>', methods=['PUT'])
