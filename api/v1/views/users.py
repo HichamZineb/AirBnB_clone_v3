@@ -8,12 +8,14 @@ from datetime import datetime
 import uuid
 
 
-@app_views.route('/users', methods=['GET'])
-@app_views.route('/users', methods=['GET'])
-def get_users():
-    '''Retrieves a list of all User objects'''
-    Users = [obj.to_dict() for obj in storage.all("User").values()]
-    return jsonify(Users)
+@app_views.route('/users', methods=['GET'], strict_slashes=False)
+def get_all_users():
+    '''
+    retrieves the list of all User objects
+    '''
+    # Get all User objects from the storage and convert them to dictionaries
+    users = storage.all(User).values()
+    return jsonify([user.to_dict() for user in users])
 
 
 @app_views.route('/users/<user_id>', methods=['GET'])
