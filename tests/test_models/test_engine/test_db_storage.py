@@ -5,7 +5,7 @@ Contains the TestDBStorageDocs and TestDBStorage classes
 
 from datetime import datetime
 import inspect
-import models
+from models import storage
 from models.engine import db_storage
 from models.amenity import Amenity
 from models.base_model import BaseModel
@@ -99,13 +99,5 @@ class TestFileStorage(unittest.TestCase):
 
     def test_count(self):
         """Test count method"""
-        storage = DBStorage()
-        Dict = {'name': 'Rabat'}
-        state = State(**Dict)
-        storage.new(state)
-        Dict = {'name': 'Morocco', 'state_id': state.id}
-        city = City(**dic)
-        storage.new(city)
-        storage.save()
         Count = storage.count()
         self.assertEqual(len(storage.all()), Count)
